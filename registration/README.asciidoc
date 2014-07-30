@@ -1,0 +1,52 @@
+== Migration of Seam 2.x Registration example
+
+ Original  https://github.com/seam2/jboss-seam/tree/Seam_2_3/examples/registration[Registration example] lives at Seam 2.x repository.
+
+ For summarry original Registration example uses EAR packaging, Seam 2.3 framework, EJB 3, JSF 2 and Bean Validation technologies. It uses Arquillian for testing so we keep it there. Additionally we can very easily use the existing functional tests from original Registration example as we would not like to change application UI.
+
+=== Basic strategy
+
+ We will replace Seam Framework with pure CDI specification standard from Java EE 6 and in parallel we keep all other technologies. This example is pretty simple so to present the main migration steps is designed for start to learn CDI.
+
+ The main step in our migration steps is that we change the packaging of example from EAR to WAR, which is enough for such simple application.
+
+=== Preparation
+
+ As can be seen in original Registration example sources, we use Maven build system to pull out all required application dependencies. Reducing packaging from EAR to WAR causes simplification of directory structure. We will use registration-web submodule as a base of our new maven project.
+
+==== Move sources to proper places
+
+ We won't move any EAR source files into new migrated application structure as there is only jboss-deployment-structure.xml file and that is not needed anymore to define server dependency inclusion or exclusion. We will use only provided dependencies which are automatically available in server container.
+
+ We move all registration-ejb java source files in to src/main/java subfolder of our new registration directory. We will rename package names to new name to differ from original sources for clean comparison.
+
+ From registration-ejb/src/main/resources we take only persistence.xml file for using the same persistent unit. All other is not needed anymore.
+
+ As I wrote in Preparation section we based our new application on registration-web submodule, we will delete web.xml and components.xml files in src/main/webapp/WEB-INF folder.
+
+
+==== Dependency definition changes
+
+ To have easier job we can manage Maven dependency versions by importing org.jboss.spec:jboss-javaee-6.0 BOM which contains all Java EE 6 definitions which we could use and need.
+
+ Remove all dependencies except org.jboss.spec.javax.faces:jboss-jsf-api_2.1_spec in pom.xml. 
+ 
+ We need to add these dependencies provided by server container:
+   * javax.enterprise:cdi-api
+   * org.jboss.spec.javax.annotation:jboss-annotations-api_1.1_spec
+   * org.jboss.spec.javax.faces:jboss-jsf-api_2.1_spec
+   * org.jboss.spec.javax.ejb:jboss-ejb-api_3.1_spec
+   * javax.validation:validation-api
+   * org.hibernate.javax.persistence:hibernate-jpa-2.0-api
+
+==== Seam component changes
+
+ Annotations needs to be migrated from org.jboss.seam.annotation.* to CDI ones.
+
+
+==== JSF 2 templates changes
+
+ There is very little to change as we need to get rid of Seam taglib first and find out the pure JSF 2 replacements.
+
+ 
+
