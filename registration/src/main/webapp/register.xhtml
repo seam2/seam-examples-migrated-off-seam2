@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+   <head>
+      <title>Register New User</title>
+   </head>
+   <body>
+      <f:view>
+		<div class="errors">
+			<h:messages id="messages" globalOnly="true" />
+		</div>
+		<h:form id="registration">
+	         <h:panelGrid columns="3">
+	            Username: <h:inputText id="username" value="#{newUser.username}" required="true" 
+	            binding="#{register.usernameInput}"/>
+	            <h:message for="username" errorClass="invalid" />
+	            Real Name: <h:inputText id="name" value="#{newUser.name}" required="true"/>
+	            <h:message for="name" errorClass="invalid" />
+	            Password: <h:inputSecret id="password" value="#{newUser.password}" required="true"/>
+	            <h:message for="password" errorClass="invalid" />
+	         </h:panelGrid>
+            <h:commandButton id="register" value="Register" action="#{register.register}"/>
+         </h:form>
+      </f:view>
+   </body>
+
+</html>
