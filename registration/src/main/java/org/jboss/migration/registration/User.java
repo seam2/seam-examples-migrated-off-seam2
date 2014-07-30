@@ -1,4 +1,4 @@
-package org.jboss.seam.example.registration;
+package org.jboss.migration.registration;
 
 import java.io.Serializable;
 
