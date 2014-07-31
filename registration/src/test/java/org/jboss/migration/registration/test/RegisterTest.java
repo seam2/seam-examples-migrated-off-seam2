@@ -3,6 +3,8 @@ package org.jboss.migration.registration.test;
 
 import java.io.File;
 
+import javax.faces.component.UIInput;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.OverProtocol;
 import org.jboss.arquillian.junit.Arquillian;
@@ -11,10 +13,11 @@ import org.jboss.migration.registration.User;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@RunWith(Arquillian.class)
+//@RunWith(Arquillian.class)
 public class RegisterTest {
     @Deployment(name = "RegisterTest")
     @OverProtocol("Servlet 3.0")
@@ -34,9 +37,14 @@ public class RegisterTest {
 		.addAsWebResource(new File("src/main/webapp","register.xhtml"))
 		.addAsWebResource(new File("src/main/webapp","registered.xhtml"));//.addAsLibraries(libs);
     }
-
-    @Test
+    
+    //@Test
     public void testLogin() throws Exception {
+    	RegisterAction register = new RegisterAction();
+    	UIInput userUIInput = new UIInput();
+    	userUIInput.setValue("testuser");
+    	register.setUsernameInput(userUIInput);
+    	Assert.assertEquals("User is not registered", "/registered.xhtml", register.register()); ;
 
 	/*
 	 * new FacesRequest("/register.xhtml") {

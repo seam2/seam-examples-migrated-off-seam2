@@ -5,7 +5,11 @@
 
    <engine>
       <property name="deploymentExportPath">target/</property>
-   </engine>
+   </engine> 
+   
+   <extension qualifier="webdriver">
+        <property name="browser">${browser}</property>
+    </extension>
 
    <container qualifier="jboss" default="true">
       <configuration>
