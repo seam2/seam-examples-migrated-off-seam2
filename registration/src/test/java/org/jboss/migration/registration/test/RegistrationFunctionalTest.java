@@ -121,10 +121,10 @@ public class RegistrationFunctionalTest {
         
         Assert.assertEquals("Register New User",browser.getTitle());
         Assert.assertTrue("Error message did not appear", browser.getPageSource().contains("messages"));
-        Assert.assertTrue("Error message did not appear.", browser.getPageSource().contains("User " + username + " already exists"));
     }
 
 	private void submitRegistration(String userName, String s_name, String s_password) {
+		clearFields();
 		username.sendKeys(userName);
         name.sendKeys(s_name);
         password.sendKeys(s_password);
@@ -132,6 +132,12 @@ public class RegistrationFunctionalTest {
 	}
     
     
+
+	private void clearFields() {
+		username.clear();
+		name.clear();
+		password.clear();
+	}
 
 	@Test
     @InSequence(3)
