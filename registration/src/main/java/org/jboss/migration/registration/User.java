@@ -20,15 +20,12 @@ import javax.validation.constraints.Size;
 @Table(name="users")
 public class User implements Serializable {
 
-	
+	private static final long serialVersionUID = 6172827713562877957L;
 	private String username;
 	private String password;
 	private String name;
-	private static final long serialVersionUID = 1L;
 
-	public User() {
-	//	super();
-	}
+	public User() {}
 	
 	public User(String name, String password, String username) {
 		this.name = name;

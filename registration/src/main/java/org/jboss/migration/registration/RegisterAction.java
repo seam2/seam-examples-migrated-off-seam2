@@ -43,7 +43,7 @@ public class RegisterAction {
 
 		if (existingUser == null) {
 			em.persist(newUser);
-			log.info("Registered new user #{newUser.username}");
+			log.info("Registered new user " + newUser.getUsername());
 			return "/registered.xhtml";
 		} else {
 			String message = "User " + newUser.getUsername() + " already exists";
