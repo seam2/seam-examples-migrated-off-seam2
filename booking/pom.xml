@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.jboss.seam.examples.migrated</groupId>
+    <artifactId>booking</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>Booking Example (EE6)</name>
+    
+    <properties>
+        <example.name>booking</example.name>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.target>1.6</maven.compiler.target>
+        <maven.compiler.source>1.6</maven.compiler.source>
+                
+        <!-- To use custom Maven settings with ShrinkWrap Resolver, uncomment 
+             and customize the following property.  -->
+        <!--<maven.user.settings>/path/to/custom/settings.xml</maven.user.settings>-->
+        
+        <!-- Plugin versions -->
+        <version.dependency.plugin>2.5.1</version.dependency.plugin>
+        <version.surefire.plugin>2.10</version.surefire.plugin>
+        <version.resources.plugin>2.6</version.resources.plugin>
+        <version.compiler.plugin>2.3.1</version.compiler.plugin>
+        <version.ear.plugin>2.6</version.ear.plugin>
+        <version.war.plugin>2.1.1</version.war.plugin>
+        <version.ejb.plugin>2.3</version.ejb.plugin>
+        <version.jboss.maven.plugin>7.5.Final</version.jboss.maven.plugin>
+        <version.jboss.bom.wfk>2.6.0-redhat-1</version.jboss.bom.wfk>
+    </properties>
+    
+    <modules>
+        <module>booking-ear</module>
+        <module>booking-ejb</module>
+        <module>booking-web</module>
+    </modules>
+    
+    <dependencyManagement>
+        <dependencies>
+            <!-- Modules -->
+            <dependency>
+                <groupId>org.jboss.seam.examples.migrated.booking</groupId>
+                <artifactId>booking-ejb</artifactId>
+                <version>${project.version}</version>
+                <type>ejb</type>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.seam.examples.migrated.booking</groupId>
+                <artifactId>booking-web</artifactId>
+                <version>${project.version}</version>
+                <type>war</type>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.seam.examples.migrated.booking</groupId>
+                <artifactId>booking-ear</artifactId>
+                <version>${project.version}</version>
+                <type>ear</type>
+            </dependency>
+            
+            <!-- BOMs -->
+            <dependency>
+                <groupId>org.jboss.bom.wfk</groupId>
+                <artifactId>jboss-javaee-6.0-with-tools</artifactId>
+                <version>${version.jboss.bom.wfk}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.bom.wfk</groupId>
+                <artifactId>jboss-javaee-6.0-with-richfaces</artifactId>
+                <version>${version.jboss.bom.wfk}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>            
+        </dependencies>
+    </dependencyManagement>
+    
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- Manage plugin versions for build stability -->
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${version.surefire.plugin}</version>
+                    <configuration>
+                        <systemPropertyVariables>
+                            <org.apache.maven.user-settings>${maven.user.settings}</org.apache.maven.user-settings>
+                        </systemPropertyVariables>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${version.dependency.plugin}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${version.resources.plugin}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${version.compiler.plugin}</version>
+                    <configuration>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
