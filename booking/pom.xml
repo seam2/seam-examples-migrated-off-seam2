@@ -27,6 +27,7 @@
         <version.ejb.plugin>2.3</version.ejb.plugin>
         <version.jboss.maven.plugin>7.5.Final</version.jboss.maven.plugin>
         <version.jboss.bom.wfk>2.6.0-redhat-1</version.jboss.bom.wfk>
+        <version.picketlink.javaee.bom>2.6.1.Final</version.picketlink.javaee.bom>
     </properties>
     
     <modules>
@@ -71,7 +72,15 @@
                 <version>${version.jboss.bom.wfk}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>            
+            </dependency>        
+            <!-- Dependency Management for PicketLink and Java EE 6.0. -->
+            <dependency>
+               <groupId>org.picketlink</groupId>
+               <artifactId>picketlink-javaee-6.0</artifactId>
+               <version>${version.picketlink.javaee.bom}</version>
+               <scope>import</scope>
+               <type>pom</type>
+            </dependency>    
         </dependencies>
     </dependencyManagement>
     
