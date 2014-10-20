@@ -3,18 +3,22 @@ package org.jboss.seam.example.booking;
 
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
+import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.Produces;
+import javax.faces.application.FacesMessage;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Stateful
-@Scope(EVENT)
 @Named("changePassword")
-@Restrict("#{identity.loggedIn}")
+//@Restrict("#{identity.loggedIn}")
 public class ChangePasswordAction implements ChangePassword
 {
-   @Inject @Out
-   private User user;
+    @Produces
+    @SessionScoped
+    private static User user;
    
    @PersistenceContext
    private EntityManager em;
@@ -22,21 +26,18 @@ public class ChangePasswordAction implements ChangePassword
    private String verify;
    
    private boolean changed;
-   
-   @Inject
-   private FacesMessages facesMessages;
-   
+     
    public void changePassword()
    {
       if ( user.getPassword().equals(verify) )
       {
          user = em.merge(user);
-         facesMessages.add("Password updated");
+         //FacesMessages  add("Password updated");
          changed = true;
       }
       else 
       {
-         facesMessages.addToControl("verify", "Re-enter new password");
+         //facesMessages.addToControl("verify", "Re-enter new password");
          revertUser();
          verify=null;
       }

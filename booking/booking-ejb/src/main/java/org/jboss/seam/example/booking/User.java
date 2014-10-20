@@ -3,6 +3,7 @@ package org.jboss.seam.example.booking;
 
 import java.io.Serializable;
 
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,7 +12,7 @@ import javax.validation.constraints.*;
 
 @Entity
 @Named("user")
-@Scope(SESSION)
+@SessionScoped
 @Table(name="Customer")
 public class User implements Serializable
 {

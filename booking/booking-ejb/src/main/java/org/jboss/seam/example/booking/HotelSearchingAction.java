@@ -6,21 +6,17 @@ import java.util.List;
 
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Factory;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Scope;
-import org.jboss.seam.annotations.datamodel.DataModel;
-import org.jboss.seam.annotations.security.Restrict;
-
 @Stateful
 @Named("hotelSearch")
-@Scope(ScopeType.SESSION)
-@Restrict("#{identity.loggedIn}")
+@SessionScoped
+//@Restrict("#{identity.loggedIn}")
 public class HotelSearchingAction implements HotelSearching
 {
     @PersistenceContext
@@ -31,7 +27,7 @@ public class HotelSearchingAction implements HotelSearching
     private int page;
     private boolean nextPageAvailable;
    
-    @DataModel
+    //@DataModel no more needed, just use JSF2
     private List<Hotel> hotels;
    
     public void find() 
@@ -74,7 +70,9 @@ public class HotelSearchingAction implements HotelSearching
       this.pageSize = pageSize;
    }
    
-   @Factory(value="pattern", scope=ScopeType.EVENT)
+   @Produces
+   @RequestScoped
+   @Named("pattern")
    public String getSearchPattern()
    {
       return searchString==null ? 

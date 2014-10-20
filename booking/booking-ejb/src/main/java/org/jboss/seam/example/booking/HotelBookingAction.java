@@ -4,27 +4,21 @@ package org.jboss.seam.example.booking;
 import static javax.persistence.PersistenceContextType.EXTENDED;
 
 import java.util.Calendar;
+import java.util.logging.Logger;
 
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
+import javax.enterprise.context.Conversation;
+import javax.enterprise.event.Event;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.jboss.seam.annotations.Begin;
-import org.jboss.seam.annotations.End;
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Logger;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Out;
-import org.jboss.seam.annotations.security.Restrict;
-import org.jboss.seam.core.Events;
-import org.jboss.seam.faces.FacesMessages;
-import org.jboss.seam.log.Log;
-
 @Stateful
 @Named("hotelBooking")
-@Restrict("#{identity.loggedIn}")
+//@Restrict("#{identity.loggedIn}")
 public class HotelBookingAction implements HotelBooking
 {
    
@@ -34,27 +28,38 @@ public class HotelBookingAction implements HotelBooking
    @Inject 
    private User user;
    
-   @Inject(required=false) @Out
+   @Inject//(required=false) @Out
    private Hotel hotel;
    
-   @Inject(required=false) 
-   @Out(required=false)
+   @Inject 
+   //@Out(required=false)
    private Booking booking;
      
-   @Inject
-   private FacesMessages facesMessages;
+   //@Inject
+   //private FacesMessages facesMessages;
       
+   //@In
+   //private Events events;
    @Inject
-   private Events events;
+   private Event<BookingEvent> bookingevent;
    
-   @Logger 
-   private Log log;
+   @Inject
+   Conversation conversation;
+   
+   //@Logger 
+   private static final Logger LOG = Logger.getLogger(HotelBookingAction.class.getName());
    
    private boolean bookingValid;
    
-   @Begin
+   //@Begin <-- do a programatic call?
    public void selectHotel(Hotel selectedHotel)
    {
+	// Start a Conversation  
+	  if (!conversation.isTransient()) {  
+	     LOG.info("Existing conversation found:" + this.conversation.getId() + " Ending it...");  
+	     conversation.end();  
+	  }  
+	  conversation.begin();  	  
       hotel = em.merge(selectedHotel);
    }
    
@@ -73,12 +78,14 @@ public class HotelBookingAction implements HotelBooking
       calendar.add(Calendar.DAY_OF_MONTH, -1);
       if ( booking.getCheckinDate().before( calendar.getTime() ) )
       {
-         facesMessages.addToControl("checkinDate", "Check in date must be a future date");
+         //facesMessages.addToControl("checkinDate", "Check in date must be a future date");
+    	 //TODO: ^^ do rather Bean Validation ?!
          bookingValid=false;
       }
       else if ( !booking.getCheckinDate().before( booking.getCheckoutDate() ) )
       {
-         facesMessages.addToControl("checkoutDate", "Check out date must be later than check in date");
+         //facesMessages.addToControl("checkoutDate", "Check out date must be later than check in date");
+    	//TODO: ^^ do rather Bean Validation ?!
          bookingValid=false;
       }
       else
@@ -92,17 +99,23 @@ public class HotelBookingAction implements HotelBooking
       return bookingValid;
    }
    
-   @End
+   //@End --> programatic call
    public void confirm()
    {
       em.persist(booking);
-      facesMessages.add("Thank you, #{user.name}, your confimation number for #{hotel.name} is #{booking.id}");
-      log.info("New booking: #{booking.id} for #{user.username}");
-      events.raiseTransactionSuccessEvent("bookingConfirmed");
+      //facesMessages.add("Thank you, #{user.name}, your confimation number for #{hotel.name} is #{booking.id}");
+      //TODO: ^^ do rather Bean Validation ?!
+      LOG.info("New booking: #{booking.id} for #{user.username}");
+      //events.raiseTransactionSuccessEvent("bookingConfirmed");
+      bookingevent.fire(new BookingEvent());
+      conversation.end();
    }
    
-   @End
-   public void cancel() {}
+   //@End --> programmatic call to end conversation
+   public void cancel() 
+   {
+	   conversation.end();
+   }
    
    @Remove
    public void destroy() {}
