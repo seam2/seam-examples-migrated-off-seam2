@@ -4,41 +4,41 @@
 	  			 xmlns:h="http://java.sun.com/jsf/html"
 	  			 xmlns:f="http://java.sun.com/jsf/core">
     
-    <s:decorate id="DecorateName" template="display.xhtml">             
+    <ui:decorate id="DecorateName" template="display.xhtml">             
 		<ui:define name="label">Name:</ui:define>
 		#{hotel.name}
-	</s:decorate>
+	</ui:decorate>
 	
-    <s:decorate id="DecorateAddress" template="display.xhtml">             
+    <ui:decorate id="DecorateAddress" template="display.xhtml">             
 		<ui:define name="label">Address:</ui:define>
 		#{hotel.address}
-	</s:decorate>
+	</ui:decorate>
 	
-    <s:decorate id="DecorateCity" template="display.xhtml">             
+    <ui:decorate id="DecorateCity" template="display.xhtml">             
 		<ui:define name="label">City:</ui:define>
 		#{hotel.city}
-	</s:decorate>
+	</ui:decorate>
 	
-    <s:decorate id="DecorateState" template="display.xhtml">             
+    <ui:decorate id="DecorateState" template="display.xhtml">             
 		<ui:define name="label">State:</ui:define>
 		#{hotel.state}
-	</s:decorate>
+	</ui:decorate>
 	
-    <s:decorate id="DecorateZip" template="display.xhtml">             
+    <ui:decorate id="DecorateZip" template="display.xhtml">             
 		<ui:define name="label">Zip:</ui:define>
 		#{hotel.zip}
-	</s:decorate>
+	</ui:decorate>
 	
-    <s:decorate id="DecorateCountry" template="display.xhtml">             
+    <ui:decorate id="DecorateCountry" template="display.xhtml">             
 		<ui:define name="label">Country:</ui:define>
 		#{hotel.country}
-	</s:decorate>
+	</ui:decorate>
 	
-    <s:decorate id="DecorateNightlyRate" template="display.xhtml">             
+    <ui:decorate id="DecorateNightlyRate" template="display.xhtml">             
 		<ui:define name="label">Nightly rate:</ui:define>
 		<h:outputText id="HotelPrice" value="#{hotel.price}">
 			<f:convertNumber type="currency" currencySymbol="$"/>
 		</h:outputText>
-	</s:decorate>
+	</ui:decorate>
 	  
 </ui:composition>

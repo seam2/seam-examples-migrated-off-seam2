@@ -53,34 +53,34 @@
                 <h:form id="registration">
 				<fieldset>
 				
-					<s:decorate id="usernameDecorate" template="edit.xhtml">
+					<ui:decorate id="usernameDecorate" template="edit.xhtml">
 						<ui:define name="label">Username:</ui:define>
 						<h:inputText id="username" value="#{user.username}" required="true">
 							<a:ajax event="blur" render="usernameDecorate"/>
 						</h:inputText>
-					</s:decorate>
+					</ui:decorate>
 					
-					<s:decorate id="nameDecorate" template="edit.xhtml">
+					<ui:decorate id="nameDecorate" template="edit.xhtml">
 						<ui:define name="label">Real Name:</ui:define>
 						<h:inputText id="name" value="#{user.name}" required="true">
 							<a:ajax event="blur" render="nameDecorate"/>
 						</h:inputText>
-					</s:decorate>
+					</ui:decorate>
 					
-					<s:decorate id="passwordDecorate" template="edit.xhtml">
+					<ui:decorate id="passwordDecorate" template="edit.xhtml">
 						<ui:define name="label">Password:</ui:define>
 						<h:inputSecret id="password" value="#{user.password}" required="true"/>
-					</s:decorate>
+					</ui:decorate>
 					
-					<s:decorate id="verifyDecorate" template="edit.xhtml">
+					<ui:decorate id="verifyDecorate" template="edit.xhtml">
 						<ui:define name="label">Verify Password:</ui:define>
 						<h:inputSecret id="verify" value="#{register.verify}" required="true"/>
-					</s:decorate>
+					</ui:decorate>
 					
 					<div class="buttonBox">
 						<h:commandButton id="register" value="Register" action="#{register.register}"/>
 						&#160;
-						<s:button id="cancel" value="Cancel" view="/home.xhtml"/>
+						<h:button id="cancel" value="Cancel" outcome="/home.xhtml"/>
 					</div>
 									
 				</fieldset>

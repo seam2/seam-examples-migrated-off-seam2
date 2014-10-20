@@ -5,16 +5,16 @@
                 xmlns:f="http://java.sun.com/jsf/core">
                  
     <div class="entry">
-        <s:label id="Label" styleClass="label #{invalid?'errors':''}">
+        <h:outputLabel id="Label" styleClass="label #{invalid?'errors':''}">
             <ui:insert name="label"/>
-            <s:span id="RequiredStyle" styleClass="required" rendered="#{required}">*</s:span>
-        </s:label>
+            <h:outputText id="RequiredStyle" styleClass="required" rendered="#{required}" >*</h:outputText>
+        </h:outputLabel>
         <span class="input #{invalid?'errors':''}">
-            <s:validateAll id="ValidateAll">
+            <!--s:validateAll id="ValidateAll"-->
                 <ui:insert/>
-            </s:validateAll>
+            <!--/s:validateAll-->
         </span>
-        <s:message id="message" styleClass="error errors" globalOnly="true"/>
+        <h:message id="message" styleClass="error errors" globalOnly="true"/>
     </div>
     
 </ui:composition>

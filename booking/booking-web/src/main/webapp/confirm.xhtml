@@ -16,33 +16,33 @@
 
 	<ui:include src="hotelview.xhtml"/>
 		
-	<s:decorate id="DecorateTotalPayment" template="display.xhtml">
+	<ui:decorate id="DecorateTotalPayment" template="display.xhtml">
 		<ui:define name="label">Total Payment:</ui:define>
 		<h:outputText id="BookingTotal" value="#{booking.total}">
 			<f:convertNumber type="currency" currencySymbol="$"/>
 		</h:outputText>
-	</s:decorate>
+	</ui:decorate>
 
-	<s:decorate id="DecorateCheckInDate" template="display.xhtml">
+	<ui:decorate id="DecorateCheckInDate" template="display.xhtml">
 		<ui:define name="label">Check In Date:</ui:define>
 		<h:outputText id="BookingCheckinDate" value="#{booking.checkinDate}"/>
-	</s:decorate>
+	</ui:decorate>
 
-	<s:decorate id="DecorateCheckoutDate" template="display.xhtml">
+	<ui:decorate id="DecorateCheckoutDate" template="display.xhtml">
 		<ui:define name="label">Check Out Date:</ui:define>
 		<h:outputText id="BookingCheckoutDate" value="#{booking.checkoutDate}"/>
-	</s:decorate>
+	</ui:decorate>
 
-	<s:decorate id="DecorateCreditCard" template="display.xhtml">
+	<ui:decorate id="DecorateCreditCard" template="display.xhtml">
 		<ui:define name="label">Credit Card #:</ui:define>
 		#{booking.creditCard}
-	</s:decorate>
+	</ui:decorate>
 	
 	<div class="buttonBox">
 		<h:form id="confirm">
 			<h:commandButton id="confirm" value="Confirm" action="#{hotelBooking.confirm}"/>
 			&#160;
-    		<s:button id="revise" value="Revise" view="/book.xhtml"/>
+    		<h:commandButton id="revise" value="Revise" view="/book.xhtml"/>
     		&#160;
     		<h:commandButton id="cancel" value="Cancel" action="#{hotelBooking.cancel}"/>
 		</h:form>
