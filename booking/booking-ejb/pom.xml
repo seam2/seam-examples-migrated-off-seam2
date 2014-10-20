@@ -20,6 +20,11 @@
          <scope>provided</scope>
       </dependency>
       <dependency>
+         <groupId>org.jboss.spec.javax.faces</groupId>
+         <artifactId>jboss-jsf-api_2.1_spec</artifactId>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
          <groupId>javax.validation</groupId>
          <artifactId>validation-api</artifactId>
          <scope>provided</scope>
@@ -29,6 +34,22 @@
          <artifactId>jboss-ejb-api_3.1_spec</artifactId>
          <scope>provided</scope>
       </dependency>
+      <dependency>
+         <groupId>javax.enterprise</groupId>
+         <artifactId>cdi-api</artifactId>
+         <scope>provided</scope>
+      </dependency>    
+      <dependency>
+         <groupId>org.jboss.spec.javax.servlet</groupId>
+         <artifactId>jboss-servlet-api_3.0_spec</artifactId>
+         <scope>provided</scope>
+      </dependency>     
+      <dependency>
+        <groupId>org.picketlink</groupId>
+        <artifactId>picketlink-impl</artifactId>
+        <scope>provided</scope>
+      </dependency>
+     
 
       <!-- Test dependencies -->
       <dependency>
@@ -124,6 +145,13 @@
 
    <build>
       <plugins>
+         <plugin>
+            <artifactId>maven-ejb-plugin</artifactId>
+            <version>2.3</version>
+            <configuration>
+                <ejbVersion>3.1</ejbVersion>
+            </configuration>
+         </plugin>
          <!-- Skip tests by default -->
          <plugin> 
             <groupId>org.apache.maven.plugins</groupId>
